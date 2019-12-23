@@ -1,0 +1,92 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" dir="ltr">
+<head>
+<script type="text/javascript"
+	src="https://checkout.razorpay.com/v1/razorpay.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+	<p>card number <input type="text" id="cc_no" name="cardno" value = "xxxx xxxx xxxx 0008"/>
+		</p>
+		<p> cvv <input id="cvv" type="text" size="3" name="cvv" /> </p>
+	<form action="/payment/validate" method="post" name="theForm"
+		class="submit">
+		<input type="hidden" id="paymentid" name="paymentid" value=""></input>
+		<input type="hidden" id="orderid" name="orderid" value=""></input> <input
+			type="hidden" id="paymentsignature" name="paymentsignature" value=""></input>
+			<input type="hidden" id="amt" name="amount" value=""></input>
+			<input type="hidden" id="customerid" name="customerid" value=""></input>
+			<button onclick="func()">Submit</button>
+		</form>
+		<script>
+			var razorpay = new Razorpay({
+				key : 'rzp_test_caQ7OMKVvbtpc3',
+				image : 'https://i.imgur.com/n5tjHFD.png',
+			});
+
+			razorpay.once('ready', function(response) {
+				console.log(response.methods);
+			})
+			var data = {
+				amount : "[[${amount}]]",
+				currency : "INR",
+				email : 'sample@example.com',
+				contact : '9999999999',
+				order_id : "[[${order_id}]]",
+				customer_id : "[[${customer_id}]]",
+				token : "[[${token_id}]]",
+				method : 'card',
+				'card[cvv]' : "[[${cvv}]]"
+			};
+
+			var amt = document.getElementById("amt");
+			amt.value = "[[${amount}]]";
+			
+			var custid = document.getElementById("customerid");
+			custid.value = "[[${customer_id}]]";
+			
+			window.onload = myFunction;
+
+			function myFunction() {
+				razorpay.createPayment(data);
+
+				console.log(razorpay.payment_id);
+
+				razorpay.on('payment.success', function(resp) {
+
+					console.log("in success");
+					console.log(resp.razorpay_payment_id);
+					console.log(resp.razorpay_order_id);
+					console.log(resp.razorpay_signature);
+
+					var paymentid = document.getElementById("paymentid");
+					paymentid.value = resp.razorpay_payment_id;
+
+					var orderid = document.getElementById("orderid");
+					orderid.value = resp.razorpay_order_id;
+
+					var paymentsignature = document
+							.getElementById("paymentsignature");
+					paymentsignature.value = resp.razorpay_signature;
+				});
+
+				razorpay.on('payment.error', function(resp) {
+					if(resp.error.description == "Payment already done for this order.") {
+						
+					} else {
+						
+					}
+					
+				});
+			}
+		</script>
+	<script>
+	function func() {	
+		document.theForm.submit();
+	}
+	</script>
+</body>
+</html>

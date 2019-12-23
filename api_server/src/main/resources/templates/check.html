@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" dir="ltr">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Details</title>
+<style type="text/css">
+dd {
+	margin-left: 75px;
+}
+#mode_margin {
+	margin-left: 0px;
+}
+</style>
+<script type="text/javascript" src="https://checkout.razorpay.com/v1/razorpay.js"> </script>
+</head>
+<body>
+	<form action="/payment/option" method="post">
+		 <input type="hidden" id="amount" name="amount" value="" />
+		<script type="text/javascript">
+			var elem = document.getElementById("amount");
+			elem.value = "[[${amount}]]";
+		</script>
+
+		<!-- <input type="hidden" id="orderid" name="orderid" value="" />
+		<script type="text/javascript">
+			var orderid = document.getElementById("orderid");
+			orderid.value = "[[${order_id}]]";
+		</script>
+		<input type="hidden" id="customerid" name="customerid" value="" />
+		<script type="text/javascript">
+			var customerid = document.getElementById("customerid");
+			customerid.value = "[[${customer_id}]]";
+		</script> -->
+		<input type="hidden" id="name" name="name" value="" />
+		<script type="text/javascript">
+			var name = document.getElementById("name");
+			name.value = "[[${name}]]";
+		</script>
+		<input type="hidden" id="email" name="email" value="" />
+		<script type="text/javascript">
+			var email = document.getElementById("email");
+			email.value = "[[${email}]]";
+		</script> 
+		<p>
+			card holder name <input type="text" id="card name" name="name"></input>
+		</p>
+		<p>
+			card number <input type="text" id="cc_no" name="cardno" />
+		</p>
+
+		<table cellpadding="0" cellspacing="0">
+			<tr>
+				<td><select id="cc_exp_mm" name="expmonth">
+						<option value="">Month</option>
+						<option value="1" selected="selected">January</option>
+						<option value="2">February</option>
+						<option value="3">March</option>
+						<option value="4">April</option>
+						<option value="5">May</option>
+						<option value="6">June</option>
+						<option value="7">July</option>
+						<option value="8">August</option>
+						<option value="9">September</option>
+						<option value="10">October</option>
+						<option value="11">November</option>
+						<option value="12">December</option>
+				</select></td>
+				<td width="20">&nbsp;</td>
+				<td><select id="cc_exp_yyyy" name="expyear">
+						<option value="">Month</option>
+						<option value="2031" selected="selected">2031</option>
+						<option value="2020">2020</option>
+						<option value="2021">2021</option>
+						<option value="2022">2022</option>
+						<option value="2023">2023</option>
+						<option value="2024">2024</option>
+						<option value="2025">2025</option>
+						<option value="2026">2026</option>
+						<option value="2027">2027</option>
+						<option value="2028">2028</option>
+						<option value="2029">2029</option>
+						<option value="2030">2030</option>
+				</select></td>
+			</tr>
+		</table>
+		<p> cvv <input id="cvv" type="text" size="3" name="cvv" /> </p>
+		<input type="submit" value="Submit"></input>
+	</form>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<html>
+<head lang="en">
+<meta charset="utf-8">
+
+<script type="text/javascript"
+	src="https://checkout.razorpay.com/v1/razorpay.js">
+	
+</script>
+</head>
+<body>
+	<form action="/payment/select" method="POST">
+
+		<p>enter amount</p>
+		<input type="text" name="amount"> </input>
+		<p>name</p>
+		<input type="text" name="name"> </input>
+		<p>email</p>
+		<input type="text" name="email"> </input>
+
+		<p>select a payment option</p>
+
+		<select name="option">
+			<option value="card">card</option>
+			<option value="wallet">wallet</option>
+			<option value="netbanking">netbanking</option>
+		</select> <input type="submit" value="Submit">
+	</form>
+</body>
+</html>

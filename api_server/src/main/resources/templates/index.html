@@ -1,0 +1,162 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" dir="ltr">
+	<head>
+	<meta charset="utf-8">
+	<title>Payment</title>
+	<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+<script type="text/javascript"
+	src="https://checkout.razorpay.com/v1/razorpay.js">
+	
+</script>
+	<style>
+body {
+	font-family: Arial, "sans-serif";
+	margin: 0;
+	padding: 0
+}
+.wrapper {
+	width: 400px;
+	margin: 0 auto
+}
+.payment-blcok {
+	border: 1px solid #cdcdcd;
+	margin-top: 30px
+}
+.payment-head {
+	font-size: 20px;
+	padding: 10px 10px 10px 20px;
+	font-weight: normal
+}
+.main-headding {
+	background: #f4f4f4;
+	padding: 15px 0 10px 20px;
+	font-size: 16px;
+}
+.add-upi-id {
+	padding: 10px 10px 10px 20px;
+	overflow: hidden
+}
+.add-upi-id-one {
+	padding: 20px 10px 20px 0px;
+	overflow: hidden;
+	width: 89%;
+	border-bottom: 1px solid #cdcdcd;
+	margin: 0 20px
+}
+.add-left-icon {
+	float: left;
+	width: 60px;
+	line-height: 62px
+}
+.add-left-icon-one {
+	float: left;
+	width: 60px;
+	line-height: 40px
+}
+.add-right-text {
+}
+.net-bankign-block {
+	border-bottom: 1px solid #cdcdcd;
+	overflow: hidden;
+}
+.icon-block {
+	width: 52px;
+	float: left;
+	margin-bottom: 10px;
+	margin-right: 30px;
+	text-align: center
+}
+.titile-name {
+	font-size: 14px
+}
+.link-account {
+	float: right;
+	font-size: 14px;
+}
+.link-account a {
+	color: #f49424;
+	text-decoration: none
+}
+.link-title {
+	font-size: 14px
+}
+</style>
+	</head>
+	<body>
+	<form action="/payment/select" method="POST">	
+	<div class="wrapper">
+      <div class="payment-blcok" style="margin: 20px 0">
+        <div style="display: block">
+          <h4 class="payment-head">PAYMENTS</h4>
+          <p>Enter amount</p>
+		<input type="text" name="amount"/>
+		<p>Name</p>
+		<input type="text" name="name"/> 
+		<p>Email</p>
+		<input type="text" name="email"/>
+          <div class="card-blcok">
+            <div style="width: 100%;display: block">
+              <div class="main-headding" onclick="handleClick('card')">CREDIT/DEBIT CARD</div>
+              <div class="add-upi-id"> <span class="add-left-icon"><img src="add-icon.png" alt=""/></span> <span class="add-right-text"> <span>ADD NEW UPI ID</span> <span style="display: block;color: #7f7f7f;padding-bottom: 10px;padding-top: 10px">Save and pay via Cards.</span> <span><img src="add-type-icon.png" width="206" height="24" alt=""/></span> </span> </div>
+            </div>
+          </div>
+          <div class="card-block">
+            <div style="width: 100%;display: block">
+            <input type="hidden" id="option" name="option" value="" />
+              <div class="main-headding">WALLETS</div>
+              <div class="add-upi-id-one" onclick="handleClick('Amazon Pay')">
+                <div style="display: block;line-height: 30px"> <span class="add-left-icon-one"><img src="amazon-pay-icon.png" alt=""/></span> <span class="add-right-text"> <span class="link-title">Amazon Pay  </span> <span class="link-account"><a href="#">LINK ACCOUNT</a></span> </span> </div>
+              </div>
+              <div class="add-upi-id-one" onclick="handleClick('Phone Pe')">
+                <div style="display: block;line-height: 30px"> <span class="add-left-icon-one"><img src="phone-pe-icon.png" alt=""/></span> <span class="add-right-text"> <span class="link-title">Phone Pe</span> <span class="link-account"><a href="#">LINK ACCOUNT</a></span> </span> </div>
+              </div>
+              <div class="add-upi-id-one" onclick="handleClick('Paytm')">
+                <div style="display: block;line-height: 30px"> <span class="add-left-icon-one"><img src="paytm-icon.png" alt=""/></span> <span class="add-right-text"> <span class="link-title">Paytm</span> <span class="link-account"><a href="#">LINK ACCOUNT</a></span> </span> </div>
+              </div>
+              <div class="add-upi-id-one" onclick="handleClick('freecharge')">
+                <div style="display: block;line-height: 30px"> <span class="add-left-icon-one"><img src="free-charge-icon.png" alt=""/></span> <span class="add-right-text"> <span class="link-title">Free Charge</span> <span class="link-account"><a href="#">LINK ACCOUNT</a></span> </span> </div>
+              </div>
+              <div class="add-upi-id-one" onclick="handleClick('mobikwik')">
+                <div style="display: block;line-height: 30px"> <span class="add-left-icon-one"><img src="mobikwik.png" alt=""/></span> <span class="add-right-text"> <span class="link-title">Mobikwik</span> <span class="link-account"><a href="#">LINK ACCOUNT</a></span> </span> </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-blcok">
+            <div style="width: 100%;display: block">
+              <div class="main-headding" >NETBANKING</div>
+              <div class="add-upi-id">
+                <div class="net-bankign-block"> <span class="icon-block" id="hdfc-netbankign"><img src="hdfc-icon.png" alt=""/><span class="titile-name" onclick="handleClick('HDFC')" >
+                 HDFC</span>
+                </span> <span class="icon-block" id="sbi-netbankign"><img src="sbi-icon.png"  alt=""/><span class="titile-name" onclick="handleClick('SBIN')">SBI</span></span>
+                 <span class="icon-block" id="icici-netbankign"><img src="icici-icon.png" alt=""/><span class="titile-name" onclick="handleClick('ICICI')">ICICI</span></span> 
+                 <span class="icon-block" id="axis-netbankign"><img src="axis-icon.png" alt=""/><span class="titile-name" onclick="handleClick('axis')">AXIS</span></span> </div>
+              </div>
+            </div>
+          </div>
+        </div>
+         <input type = "submit" value = "submit"/>
+       
+      </div>
+    </div>  
+       <script type="text/javascript">
+    	function handleClick(variantType){    		
+    		document.getElementById("option").value = variantType;
+    		console.log(document.getElementById("option").value + "option value");
+    		
+    	}
+    	
+    	window.onbeforeunload = function() {
+			return ;
+		};
+    </script>  
+    </form>
+</body>
+
+</html>

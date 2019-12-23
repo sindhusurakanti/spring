@@ -1,0 +1,23 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" dir="ltr">
+<head>
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<title>Insert title here</title>
+<body>
+	<p> payment unsuccessfull</p>
+	
+	<input type="text" id="error" name="error" value="" size="40"></input>
+	
+	<script> 
+		
+	var error = document.getElementById("error");
+	error.value = "[[${error}]]"
+	console.log(error);
+	</script>
+</body>
+</html>
